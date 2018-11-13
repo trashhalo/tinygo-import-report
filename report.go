@@ -27,7 +27,7 @@ This project imports each package in the stdlib and reports if it imports cleanl
 
 | Package | Imported? |
 | --- | --- |{{ range $key, $value := .}}
-| {{$value.Name}} | {{if $value.Imported}} :heavy_check_mark: {{else}} [:x:](#{{$value.Name}}) {{end}} |{{ end }}
+| {{$value.Name}} | {{if $value.Imported}} :heavy_check_mark: {{else}} [:x:](#{{$value.Link}}) {{end}} |{{ end }}
 
 
 {{ range $key, $value := .}}
@@ -43,6 +43,7 @@ type Result struct {
 	Name     string
 	Imported bool
 	Output   string
+	Link     string
 }
 
 func main() {
@@ -70,7 +71,12 @@ func main() {
 		}
 		cmd := exec.Command("make", "build", fmt.Sprintf("target=%v", noslash))
 		stdoutStderr, err := cmd.CombinedOutput()
-		results = append(results, Result{line, err == nil, string(stdoutStderr)})
+		results = append(results, Result{
+			line,
+			err == nil,
+			string(stdoutStderr),
+			strings.Replace(line, "/", "", -1),
+		})
 	}
 
 	f, err := os.Create("Readme.md")
