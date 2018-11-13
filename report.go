@@ -25,7 +25,8 @@ const readmeTemplate = `
 # Tinygo Import Report
 This project imports each package in the stdlib and reports if it imports cleanly in tinygo.
 
-| Package | Imported? |{{ range $key, $value := .}}
+| Package | Imported? |
+| --- | --- |{{ range $key, $value := .}}
 | {{$value.Name}} | {{if $value.Imported}} :heavy_check_mark: {{else}} [:x:](#{{$value.Name}}) {{end}} |{{ end }}
 
 

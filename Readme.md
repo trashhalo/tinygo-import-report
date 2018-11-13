@@ -3,6 +3,7 @@
 This project imports each package in the stdlib and reports if it imports cleanly in tinygo.
 
 | Package | Imported? |
+| --- | --- |
 | archive/tar |  [:x:](#archive/tar)  |
 | archive/zip |  [:x:](#archive/zip)  |
 | bufio |  :heavy_check_mark:  |
