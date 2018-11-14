@@ -5,6 +5,7 @@ import (
 	"io/ioutil"
 	"os"
 	"os/exec"
+	"sort"
 	"strings"
 	"sync"
 	"text/template"
@@ -108,6 +109,9 @@ func main() {
 	}
 	wg.Wait()
 	close(results)
+	sort.Slice(resultsArr, func(i, j int) bool {
+		return resultsArr[i].Name < resultsArr[j].Name
+	})
 
 	f, err := os.Create("Readme.md")
 	if err != nil {
