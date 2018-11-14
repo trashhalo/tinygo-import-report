@@ -95,7 +95,7 @@ func main() {
 			}
 			cmd := exec.Command("make", "build", fmt.Sprintf("target=%v", noslash))
 			stdoutStderr, err := cmd.CombinedOutput()
-			cmdI := exec.Command("make", "build", fmt.Sprintf("target=%v", noslash))
+			cmdI := exec.Command("make", "build-init", fmt.Sprintf("target=%v", noslash))
 			stdoutStderrI, errI := cmdI.CombinedOutput()
 			results <- Result{
 				line,
