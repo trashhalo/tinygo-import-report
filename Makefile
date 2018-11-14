@@ -7,4 +7,4 @@ build:
 
 build-init:
 	docker run --rm -v $(current_dir)/tests/$(target):/go/src/$(pkg) tinygo/tinygo \
-	build -o /go/src/$(pkg)/wasm.wasm -initinterp -target wasm $(pkg)
+	build -o /go/src/$(pkg)/wasm.wasm -initInterp -target wasm $(pkg)
