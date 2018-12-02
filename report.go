@@ -27,37 +27,27 @@ const readmeTemplate = `
 # Tinygo Import Report
 This project imports each package in the stdlib and reports if it imports cleanly in tinygo. 
 A package with a check may work a package with a x will definately not currently work.
-If a package has a x in imported? but check in importedWithInit? it means you need to build your project
-with -initinterp.
 
-| Package | Imported? | ImportedWithInit? |
-| --- | --- | --- |{{ range $key, $value := .}}
-| {{$value.Name}} | {{if $value.Imported}} :heavy_check_mark: {{else}} [:x:](#{{$value.Link}}) {{end}} | {{if $value.ImportedWithInit}} :heavy_check_mark: {{else}} [:x:](#{{$value.Link}}) {{end}} | {{ end }}
+| Package | Imported? | 
+| --- | --- |{{ range $key, $value := .}}
+| {{$value.Name}} | {{if $value.Imported}} :heavy_check_mark: {{else}} [:x:](#{{$value.Link}}) {{end}} | {{ end }}
 
 
 {{ range $key, $value := .}}
 ## {{$value.Name}}
-Without Init Interp
 
 BTBTBT
 {{$value.Output}}
 BTBTBT
 
-With Init Interp
-
-BTBTBT
-{{$value.OutputWithInit}}
-BTBTBT
 {{ end }}
 `
 
 type Result struct {
-	Name             string
-	Imported         bool
-	ImportedWithInit bool
-	Output           string
-	OutputWithInit   string
-	Link             string
+	Name     string
+	Imported bool
+	Output   string
+	Link     string
 }
 
 func main() {
@@ -95,14 +85,10 @@ func main() {
 			}
 			cmd := exec.Command("make", "build", fmt.Sprintf("target=%v", noslash))
 			stdoutStderr, err := cmd.CombinedOutput()
-			cmdI := exec.Command("make", "build-init", fmt.Sprintf("target=%v", noslash))
-			stdoutStderrI, errI := cmdI.CombinedOutput()
 			results <- Result{
 				line,
 				err == nil,
-				errI == nil,
 				string(stdoutStderr),
-				string(stdoutStderrI),
 				strings.Replace(line, "/", "", -1),
 			}
 		}(line)
