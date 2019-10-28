@@ -3,6 +3,8 @@
 This page is old and deprecated by the official standard library report
 https://tinygo.org/lang-support/stdlib/
 
+---
+
 This project imports each package in the stdlib and reports if it imports cleanly in tinygo. 
 A package with a check may work a package with a x will definately not currently work.
 
